@@ -1,0 +1,17 @@
+{% load i18n %}
+{% load static %}
+{% load compress %}
+
+    <!-- jQuery -->
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+{% endcompress %}
+
+    <!-- Twitter Bootstrap -->
+    <!-- REMINDER: Twitter Bootstrap Styles (`bootstrap.less`) are being loaded in `less/imports.less` above. -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+{% endcompress %}
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+{% endcompress %}
