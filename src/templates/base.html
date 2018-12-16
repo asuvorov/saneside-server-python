@@ -22,6 +22,7 @@
     {% block extra_meta %}
         {# get_metadata #}
     {% endblock %}
+
     {% block extra_style %}{% endblock %}
     {% block extra_script %}{% endblock %}
     {% block extra_head %}{% endblock %}
@@ -56,7 +57,7 @@
 
         <!-- Modals -->
     {% if not request.user.is_authenticated %}
-        {% include "accounts/modals/forgot-password-popup-modal.html" %}
+        {# include "accounts/modals/forgot-password-popup-modal.html" #}
     {% endif %}
 
         {% include "home/modals/privacy-policy-popup-modal.html" %}

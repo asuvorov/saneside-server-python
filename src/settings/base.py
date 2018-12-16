@@ -280,6 +280,7 @@ BOWER_PATH = "/usr/local/bin/bower"
 BOWER_INSTALLED_APPS = (
     "bootstrap#4.1.3",
     "fontawesome#5.5.0",
+    "ismobilejs#0.5.0",
     "jquery#3.3.1",
 )
 
