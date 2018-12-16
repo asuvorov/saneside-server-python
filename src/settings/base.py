@@ -159,6 +159,7 @@ INSTALLED_APPS = (
     "twitter_tag",
 
     # --- Project Apps
+    "accounts",
     "api",
     "app",
     "events",
