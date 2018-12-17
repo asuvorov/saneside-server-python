@@ -2,12 +2,29 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from ddcore.models import BaseModel
+
+from accounts.choices import (
+    Gender, gender_choices)
 
 # =============================================================================
 # ===
 # === USER PROFILE
 # ===
 # =============================================================================
+def user_directory_path(instance, filename):
+    """User Directory Path.
+
+    File will be uploaded to MEDIA_ROOT/accounts/<id>/avatars/<filename>.
+    """
+
+    return "accounts/{id}/avatars/{fname}".format(
+        id=instance.user.id,
+        fname=get_unique_filename(
+            filename.split("/")[-1]
+            ))
+
+
 class UserProfileManager(models.Manager):
     """User Profile Manager."""
 
@@ -16,22 +33,48 @@ class UserProfileManager(models.Manager):
         return super(UserProfileManager, self).get_queryset()
 
 
-@autoconnect
-class UserProfile(
-        CommentMixin, ComplaintMixin,
-        ChallengeMixin, ParticipationMixin,
-        OrganizationGroupMixin, OrganizationStaffMixin,
-        RatingMixin, ViewMixin, TimeStampedModel):
-    """User Profile Model."""
+class UserProfile(BaseModel):
+    """User Profile Model.
 
-    # TODO: For each Model define the Attributes and Methods in this Order:
-    #       Relations
-    #       Attributes - Mandatory
-    #       Attributes - Optional
-    #       Object Manager
-    #       Custom Properties
-    #       Methods
-    #       Meta and String
+    Attributes
+    ----------
+    user: obj
+        FK to User Object.
+    avatar: obj, optional
+        User Avatar.
+    nickname: obj, optional
+        User Nickname.
+    bio: obj, optional
+        User Biography.
+    gender: obj, optional
+        User Gender.
+    birthday: obj, optional
+        User Birthday.
+    address: obj, optional
+        FK to Address Object.
+    phone_number: obj, optional
+        FK to Phone Object.
+    receive_newsletters: obj, optional
+        Flag.
+    is_newly_created: obj
+        Flag.
+
+    Properties
+    ----------
+
+    Methods
+    -------
+
+    Static Methods
+    --------------
+
+    Class Methods
+    -------------
+
+    Signals
+    -------
+
+    """
 
     # -------------------------------------------------------------------------
     # --- Basics
@@ -57,10 +100,10 @@ class UserProfile(
 
     gender = models.CharField(
         max_length=2,
-        choices=gender_choices, default=GENDER_TYPE.FEMALE,
+        choices=gender_choices, default=Gender.OTHER,
         verbose_name=_("Gender"),
         help_text=_("User Gender"))
-    birth_day = models.DateField(
+    birthday = models.DateField(
         db_index=True,
         null=True, blank=True,
         verbose_name=_("Birthday"),
@@ -68,18 +111,18 @@ class UserProfile(
 
     # -------------------------------------------------------------------------
     # --- Address & Phone Number.
-    address = models.ForeignKey(
-        Address,
-        db_index=True,
-        null=True, blank=True,
-        verbose_name=_("Address"),
-        help_text=_("User Address"))
-    phone_number = models.ForeignKey(
-        Phone,
-        db_index=True,
-        null=True, blank=True,
-        verbose_name=_("Phone Numbers"),
-        help_text=_("User Phone Numbers"))
+    # address = models.ForeignKey(
+    #     Address,
+    #     db_index=True,
+    #     null=True, blank=True,
+    #     verbose_name=_("Address"),
+    #     help_text=_("User Address"))
+    # phone_number = models.ForeignKey(
+    #     Phone,
+    #     db_index=True,
+    #     null=True, blank=True,
+    #     verbose_name=_("Phone Numbers"),
+    #     help_text=_("User Phone Numbers"))
 
     # -------------------------------------------------------------------------
     # --- Flags.
@@ -91,16 +134,12 @@ class UserProfile(
     is_newly_created = models.BooleanField(
         default=True)
 
-    # -------------------------------------------------------------------------
-    # --- Different.
-    fb_profile = models.CharField(
-        max_length=255, null=True, blank=True)
-
     USERNAME_FIELD = "email"
 
     objects = UserProfileManager()
 
     class Meta:
+        """Meta Class."""
         verbose_name = _("user profile")
         verbose_name_plural = _("user profiles")
         ordering = [
@@ -110,14 +149,15 @@ class UserProfile(
 
     def __repr__(self):
         """Docstring."""
-        return u"<%s (%s: '%s')>" % (
+        return u"<{} ({}: '{}')>".format(
             self.__class__.__name__,
             self.id,
             self.user)
 
     def __unicode__(self):
         """Docstring."""
-        return u"%s" % self.user.get_full_name()
+        return u"{}".format(
+            self.user.get_full_name())
 
     def __str__(self):
         """Docstring."""
@@ -125,6 +165,7 @@ class UserProfile(
 
     # -------------------------------------------------------------------------
     # --- Profile direct URL.
+    # -------------------------------------------------------------------------
     def public_url(self, request=None):
         """Docstring."""
         if request:
@@ -153,7 +194,8 @@ class UserProfile(
         return url
 
     # -------------------------------------------------------------------------
-    # --- Profile Completeness.
+    # --- Properties.
+    # -------------------------------------------------------------------------
     @property
     def grace_period_days_left(self):
         """Docstring."""
@@ -213,8 +255,6 @@ class UserProfile(
 
         return completeness_total
 
-    # -------------------------------------------------------------------------
-    # --- Helpers.
     @property
     def stat_gender_name(self):
         """Docstring."""
@@ -269,10 +309,8 @@ class UserProfile(
         return self.user.get_full_name()
 
     # -------------------------------------------------------------------------
-    # --- Challenges
-
+    # --- Methods.
     # -------------------------------------------------------------------------
-    # --- Methods
     def email_notify_signup_confirmation(self, request=None, url=None):
         """Send Notification to the User."""
         print colored("***" * 27, "green")
@@ -449,8 +487,6 @@ class UserProfile(
             headers=None,
         )
 
-    # -------------------------------------------------------------------------
-    # --- Methods.
     def image_tag(self):
         """Render Avatar Thumbnail."""
         if self.avatar:
@@ -466,7 +502,16 @@ class UserProfile(
     image_tag.allow_tags = True
 
     # -------------------------------------------------------------------------
+    # --- Static Methods.
+    # -------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
+    # --- Class Methods.
+    # -------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # --- Signals.
+    # -------------------------------------------------------------------------
     def pre_save(self, **kwargs):
         """Docstring."""
         pass
