@@ -1,0 +1,19 @@
+v0.2.0 (2019-01-19)
+-------------------
+- Bump version: 0.1.0 → 0.2.0. [Artem Suvorov]
+- Created Index Page. (#52) [Artem Suvorov]
+
+  * Continue...
+
+  * chg: usr: Changes to the Django Compressor Settings...
+
+  * new: usr: Added Footer...
+
+  * new: usr: Added Error Pages...
+
+  * new: usr: Created Home Page...
+
+  * new: usr: Added NavBar...
+- Continue... [Artem Suvorov]
+
+
