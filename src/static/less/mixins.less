@@ -1,0 +1,35 @@
+/*****************************************************************************/
+/*****************************************************************************/
+/***                                                                       ***/
+/*** DIFFERENT                                                             ***/
+/***                                                                       ***/
+/*****************************************************************************/
+/*****************************************************************************/
+.font-style-mixin(
+        @font-color:    inherit,
+        @font-size:     inherit,
+        @font-weight:   normal) {
+    color:                  @font-color;
+    font-size:              @font-size;
+    font-weight:            @font-weight;
+    text-shadow:            1px 1px 2px @gray;
+}
+.placeholder-style(@style) {
+              &:-moz-placeholder  { font-style: @style; } // Firefox 4-18
+             &::-moz-placeholder  { font-style: @style; } // Firefox 19+
+         &:-ms-input-placeholder  { font-style: @style; } // Internet Explorer 10+
+    &::-webkit-input-placeholder  { font-style: @style; } // Safari and Chrome
+}
+.circle(
+        @radius,
+        @background-color,
+        @border-color:  @white,
+        @border:        0.0) {
+    width:                  (@radius * 2);
+    height:                 (@radius * 2);
+    border-radius:          @radius;
+    border:                 @border-color solid (@radius * @border);
+    line-height:            (@radius * 2);
+    text-align:             center;
+    background:             @background-color;
+}

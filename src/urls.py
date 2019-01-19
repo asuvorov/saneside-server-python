@@ -60,7 +60,7 @@ urlpatterns = [
     # url(r"^organizations/", include("organizations.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# handler400 = "core.views.handler400"
-# handler403 = "core.views.handler403"
-# handler404 = "core.views.handler404"
-# handler500 = "core.views.handler500"
+handler400 = "app.views.handler400"
+handler403 = "app.views.handler403"
+handler404 = "app.views.handler404"
+handler500 = "app.views.handler500"
