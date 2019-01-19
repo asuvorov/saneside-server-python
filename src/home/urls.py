@@ -9,6 +9,6 @@ urlpatterns = [
     # -------------------------------------------------------------------------
     # --- Index
     url(r"^$",
-        index,
+        IndexViewSet.as_view(),
         name="index"),
 ]

@@ -1,3 +1,10 @@
+import inspect
+import os
+import re
+
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
 from rest_framework import (
     mixins,
     parsers,
@@ -19,6 +26,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
+
+from termcolor import colored
 
 
 # =============================================================================
@@ -53,8 +62,15 @@ class APIStatusViewSet(APIView):
         request : obj
 
         """
-        # print colored("***" * 27, "green")
-        # print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        # ---------------------------------------------------------------------
+        # --- Initials.
+        # ---------------------------------------------------------------------
 
         # ---------------------------------------------------------------------
         # --- Retrieve Data from the Request.
@@ -65,9 +81,16 @@ class APIStatusViewSet(APIView):
         # ---------------------------------------------------------------------
 
         # ---------------------------------------------------------------------
+        # --- Prepare the Response.
+        # ---------------------------------------------------------------------
+
+        # ---------------------------------------------------------------------
         # --- Send the Response.
+        # ---------------------------------------------------------------------
         return Response({
-            "message":      _("Successfully sent the Password Renewal Link."),
+            "message":  _("OK"),
+            "code":     status.HTTP_200_OK,
+            "response": {},
         }, status=status.HTTP_200_OK)
 
 api_status = APIStatusViewSet.as_view()
@@ -105,8 +128,15 @@ class APIVersionViewSet(APIView):
         request : obj
 
         """
-        # print colored("***" * 27, "green")
-        # print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        # ---------------------------------------------------------------------
+        # --- Initials.
+        # ---------------------------------------------------------------------
 
         # ---------------------------------------------------------------------
         # --- Retrieve Data from the Request.
@@ -117,9 +147,31 @@ class APIVersionViewSet(APIView):
         # ---------------------------------------------------------------------
 
         # ---------------------------------------------------------------------
+        # --- Prepare the Response.
+        # ---------------------------------------------------------------------
+        PROJECT_PATH = settings.PROJECT_PATH
+        VERSION_RE = re.compile(r"""__version__ = [""]([0-9.]+((dev|rc|b)[0-9]+)?)[""]""")
+        VERSION = ""
+
+        file_abspath = os.path.abspath(
+            os.path.join(
+                PROJECT_PATH,
+                "__init__.py"))
+
+        with open(file_abspath, "r") as init_file:
+            init = init_file.read()
+
+            VERSION = VERSION_RE.search(init).group(1)
+
+        # ---------------------------------------------------------------------
         # --- Send the Response.
+        # ---------------------------------------------------------------------
         return Response({
-            "message":      _("Successfully sent the Password Renewal Link."),
+            "message":  _("success"),
+            "code":     status.HTTP_200_OK,
+            "response": {
+                "version":  VERSION,
+            },
         }, status=status.HTTP_200_OK)
 
 api_version = APIVersionViewSet.as_view()

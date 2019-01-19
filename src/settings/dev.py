@@ -6,8 +6,8 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 DATABASES = {
     "default": {
-        "ENGINE":   config("DB_ENGINE", default=""),
-        "NAME":     config("DB_NAME", default=""),
+        "ENGINE":   config("DB_ENGINE", default="django.db.backends.sqlite3"),
+        "NAME":     config("DB_NAME", default="sqlite.db"),
         "USER":     config("DB_USER", default=""),
         "PASSWORD": config("DB_PASSWORD", default=""),
         "HOST":     config("DB_HOST", default=""),
@@ -62,17 +62,17 @@ MIDDLEWARE_CLASSES = (
 ###############################################################################
 ### DJANGO CACHING                                                          ###
 ###############################################################################
-# CACHES = {
-#     "default": {
-#         "BACKEND":  config("CACHE_BACKEND", default=""),
-#         "LOCATION": config("CACHE_LOCATION", default=""),
-#         "TIMEOUT":  config("CACHE_TIMEOUT", default=""),
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND":  config("CACHE_BACKEND", default="django.core.cache.backends.dummy.DummyCache"),
+        "LOCATION": config("CACHE_LOCATION", default=""),
+        "TIMEOUT":  config("CACHE_TIMEOUT", default=60),
+    }
+}
 
-# CACHE_MIDDLEWARE_ALIAS = config("CACHE_MIDDLEWARE_ALIAS", default="")
-# CACHE_MIDDLEWARE_SECONDS = config("CACHE_MIDDLEWARE_SECONDS", default="")
-# CACHE_MIDDLEWARE_KEY_PREFIX = config("CACHE_MIDDLEWARE_KEY_PREFIX", default="")
+CACHE_MIDDLEWARE_ALIAS = config("CACHE_MIDDLEWARE_ALIAS", default="default")
+CACHE_MIDDLEWARE_SECONDS = config("CACHE_MIDDLEWARE_SECONDS", default=600)
+CACHE_MIDDLEWARE_KEY_PREFIX = config("CACHE_MIDDLEWARE_KEY_PREFIX", default="")
 
 
 ###############################################################################
