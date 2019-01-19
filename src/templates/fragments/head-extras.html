@@ -19,3 +19,14 @@
 {% compress js %}
     <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
 {% endcompress %}
+
+    <!-- Less CSS -->
+{% compress css %}
+    <link rel="stylesheet" type="text/less" href="{% static 'less/imports.less' %}">
+{% endcompress %}
+{% comment %}
+    <script type="text/javascript" src="{% static 'less/dist/less.min.js' %}"></script>
+{% endcomment %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/fontawesome.min.css' %}">
