@@ -1,0 +1,13 @@
+{% load static %}
+
+<script>
+    /*************************************************************************/
+    /*** AJAX Spinner                                                      ***/
+    /*************************************************************************/
+    $(document).ajaxStart(function () {
+        $("#spinner").fadeIn("slow");
+    });
+    $(document).ajaxStop(function () {
+        $("#spinner").fadeOut("slow");
+    });
+</script>
