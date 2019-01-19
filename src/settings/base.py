@@ -341,6 +341,15 @@ GEOIP_PATH = os.path.join(PROJECT_PATH, "geoip/")
 ###############################################################################
 ### DJANGO IMAGEKIT                                                         ###
 ###############################################################################
+INSTALLED_APPS += (
+    "imagekit",
+)
+
+IMAGEKIT_CACHEFILE_DIR = "CACHE/images"
+IMAGEKIT_DEFAULT_CACHEFILE_BACKEND = "imagekit.cachefiles.backends.Simple"
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = "imagekit.cachefiles.strategies.JustInTime"
+IMAGEKIT_CACHEFILE_NAMER = "imagekit.cachefiles.namers.hash"
+IMAGEKIT_SPEC_CACHEFILE_NAMER = "imagekit.cachefiles.namers.source_name_as_path"
 
 
 ###############################################################################
