@@ -301,7 +301,7 @@ STATICFILES_FINDERS += (
 )
 
 COMPRESS_PRECOMPILERS = (
-    ("text/less", "sass --scss {infile} {outfile}"),
+    ("text/less", "lessc {infile} {outfile}"),
 )
 
 COMPRESS_CSS_FILTERS = [
