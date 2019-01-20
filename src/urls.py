@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.sitemaps.views import sitemap
+# from django.contrib.sitemaps.views import sitemap
 
 # from rest_framework_swagger.views import get_swagger_view
 
@@ -38,7 +38,6 @@ urlpatterns = [
     # url(r"^", include("cyborg.urls")),
 
     # url(r"^ckeditor/", include("ckeditor_uploader.urls")),
-    url(r"^grappelli/", include("grappelli.urls")),
     url(r"^admin/", include(admin.site.urls)),
     # url(r"^captcha/", include("captcha.urls")),
     # url(r"^docs/", schema_view),
@@ -61,7 +60,7 @@ urlpatterns = [
     # url(r"^organizations/", include("organizations.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# handler400 = "core.views.handler400"
-# handler403 = "core.views.handler403"
-# handler404 = "core.views.handler404"
-# handler500 = "core.views.handler500"
+handler400 = "app.views.handler400"
+handler403 = "app.views.handler403"
+handler404 = "app.views.handler404"
+handler500 = "app.views.handler500"

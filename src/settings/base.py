@@ -140,8 +140,6 @@ WSGI_APPLICATION = "wsgi.application"
 
 INSTALLED_APPS = (
     # --- Django Apps
-    "grappelli",
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -159,6 +157,7 @@ INSTALLED_APPS = (
     "twitter_tag",
 
     # --- Project Apps
+    "accounts",
     "api",
     "app",
     "events",
@@ -249,6 +248,7 @@ LOGGING = {
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
+AUTH_USER_MODEL = "accounts.User"
 
 
 ###############################################################################
@@ -278,8 +278,8 @@ STATICFILES_FINDERS += (
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, "components/")
 BOWER_PATH = "/usr/local/bin/bower"
 BOWER_INSTALLED_APPS = (
-    "bootstrap#4.1.3",
-    "fontawesome#5.5.0",
+    "bootstrap#3.3.7",
+    "fontawesome#5.6.3",
     "ismobilejs#0.5.0",
     "jquery#3.3.1",
 )
@@ -301,7 +301,7 @@ STATICFILES_FINDERS += (
 )
 
 COMPRESS_PRECOMPILERS = (
-    ("text/less", "sass --scss {infile} {outfile}"),
+    ("text/less", "lessc {infile} {outfile}"),
 )
 
 COMPRESS_CSS_FILTERS = [
@@ -334,18 +334,6 @@ GEOIP_PATH = os.path.join(PROJECT_PATH, "geoip/")
 
 
 ###############################################################################
-### DJANGO GRAPPELLI                                                        ###
-###############################################################################
-GRAPPELLI_ADMIN_TITLE = "SaneSide Admin"
-GRAPPELLI_AUTOCOMPLETE_LIMIT = 25
-# GRAPPELLI_AUTOCOMPLETE_SEARCH_FIELDS
-GRAPPELLI_SWITCH_USER = True
-# GRAPPELLI_SWITCH_USER_ORIGINAL
-# GRAPPELLI_SWITCH_USER_TARGET
-# GRAPPELLI_CLEAN_INPUT_TYPES = False
-
-
-###############################################################################
 ### DJANGO HAYSTACK                                                         ###
 ###############################################################################
 
@@ -353,6 +341,15 @@ GRAPPELLI_SWITCH_USER = True
 ###############################################################################
 ### DJANGO IMAGEKIT                                                         ###
 ###############################################################################
+INSTALLED_APPS += (
+    "imagekit",
+)
+
+IMAGEKIT_CACHEFILE_DIR = "CACHE/images"
+IMAGEKIT_DEFAULT_CACHEFILE_BACKEND = "imagekit.cachefiles.backends.Simple"
+IMAGEKIT_DEFAULT_CACHEFILE_STRATEGY = "imagekit.cachefiles.strategies.JustInTime"
+IMAGEKIT_CACHEFILE_NAMER = "imagekit.cachefiles.namers.hash"
+IMAGEKIT_SPEC_CACHEFILE_NAMER = "imagekit.cachefiles.namers.source_name_as_path"
 
 
 ###############################################################################
