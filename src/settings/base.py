@@ -285,6 +285,7 @@ BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, "components/")
 BOWER_PATH = "/usr/local/bin/bower"
 BOWER_INSTALLED_APPS = (
     "bootstrap#3.3.7",
+    "bootstrap-social-buttons#1.0.0",
     "fontawesome#5.6.3",
     "ismobilejs#0.5.0",
     "jquery#3.3.1",

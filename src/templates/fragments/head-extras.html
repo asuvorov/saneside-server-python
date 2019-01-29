@@ -6,15 +6,6 @@
     <script type="text/javascript" charset="utf-8" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 {% endcompress %}
 
-    <!-- Twitter Bootstrap -->
-    <!-- REMINDER: Twitter Bootstrap Styles (`bootstrap.less`) are being loaded in `less/imports.less` above. -->
-{% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
-{% endcompress %}
-{% compress js %}
-    <script type="text/javascript" charset="utf-8" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-{% endcompress %}
-
     <!-- Bootsnav -->
 {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/bootsnav/css/animate.css' %}">
@@ -25,9 +16,19 @@
     <script type="text/javascript" charset="utf-8" src="{% static 'plugins/bootsnav/js/bootsnav.js' %}"></script>
 {% endcompress %}
 
-    <!-- jQuery isMobile -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+
+    <!-- Font Flat Icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/flaticon/flaticon.css' %}">
+
+    <!-- Twitter Bootstrap -->
+    <!-- REMINDER: Twitter Bootstrap Styles (`bootstrap.less`) are being loaded in `less/imports.less` above. -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+{% endcompress %}
 {% compress js %}
-    <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
+    <script type="text/javascript" charset="utf-8" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 {% endcompress %}
 
     <!-- Less CSS -->
@@ -38,8 +39,13 @@
     <script type="text/javascript" src="{% static 'less/dist/less.min.js' %}"></script>
 {% endcomment %}
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}">
+    <!-- Twitter Bootstrap Social Buttons -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-social-buttons/social-buttons-3.css' %}">
+{% endcompress %}
 
-    <!-- Font Flat Icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/flaticon/flaticon.css' %}">
+    <!-- jQuery isMobile -->
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
+{% endcompress %}
+
