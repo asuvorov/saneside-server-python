@@ -51,13 +51,13 @@
                     <ul class="dropdown-menu cart-list">
                         <li>
                             <a href="{# url 'my-profile-view' #}">
-                                <i class="fa fa-user-circle-o fa-fw"></i> {{ request.user.profile.auth_name }}
+                                <i class="fas fa-user-circle fa-fw"></i> {{ request.user.profile.auth_name }}
                             </a>
                         </li>
 
                         <li>
                             <a href="{# url 'logout' #}">
-                                <i class="fa fa-sign-out fa-fw"></i> {% trans "Log out" %}
+                                <i class="fas fa-sign-out-alt fa-fw"></i> {% trans "Log out" %}
                             </a>
                         </li>
                     </ul>
@@ -69,12 +69,12 @@
                     <ul class="dropdown-menu cart-list">
                         <li>
                             <a href="{# url 'signup' #}">
-                                <i class="fa fa-user-plus fa-fw"></i> {% trans "Sign up" %}
+                                <i class="fas fa-user-plus fa-fw"></i> {% trans "Sign up" %}
                             </a>
                         </li>
                         <li>
                             <a href="{# url 'login' #}">
-                                <i class="fa fa-sign-in fa-fw"></i> {% trans "Log in" %}
+                                <i class="fas fa-sign-in-alt fa-fw"></i> {% trans "Log in" %}
                             </a>
                         </li>
                     </ul>
