@@ -15,6 +15,16 @@
     <script type="text/javascript" charset="utf-8" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 {% endcompress %}
 
+    <!-- Bootsnav -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/bootsnav/css/animate.css' %}">
+    {# <link rel="stylesheet" type="text/css" href="{% static 'plugins/bootsnav/css/bootsnav.css' %}"> #}
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/bootsnav/css/style.css' %}">
+{% endcompress %}
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'plugins/bootsnav/js/bootsnav.js' %}"></script>
+{% endcompress %}
+
     <!-- jQuery isMobile -->
 {% compress js %}
     <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
