@@ -50,7 +50,7 @@ urlpatterns = [
     #     name="django.contrib.sitemaps.views.sitemap"),
 
     url(r"^", include("home.urls")),
-    # url(r"^accounts/", include("accounts.urls")),
+    url(r"^accounts/", include("accounts.urls")),
     url(r"^api/", include("api.urls")),
     # url(r"^blog/", include("blog.urls")),
     # url(r"^core/", include("core.urls")),
