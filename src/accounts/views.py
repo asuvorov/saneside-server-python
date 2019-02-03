@@ -1,6 +1,11 @@
 import inspect
 
-from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
+from django.core.urlresolvers import reverse
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    )
 from django.shortcuts import (
     get_object_or_404,
     redirect,
@@ -8,6 +13,8 @@ from django.shortcuts import (
     )
 
 from termcolor import colored
+
+from accounts.forms import LoginForm
 
 
 # =============================================================================
@@ -17,9 +24,13 @@ from termcolor import colored
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# --- Login
+# --- Log-in.
 # -----------------------------------------------------------------------------
-class LoginViewSet(TemplateView):
+class LoginViewSet(LoginView):
+    """Log-in View Set."""
+
+    authentication_form = LoginForm
+    template_name = "accounts/registration/login.html"
 
     # @cache_page(60 * 60)
     def get(self, request, *args, **kwargs):
@@ -33,14 +44,19 @@ class LoginViewSet(TemplateView):
         # g = GeoIP()
         # ip = get_client_ip(request)
 
-        # -------------------------------------------------------------------------
-        # --- Prepare Form(s).
-        # -------------------------------------------------------------------------
-        form = LoginForm(
-            request.POST or None)
+        # ---------------------------------------------------------------------
+        # --- Parse Request.
+        # ---------------------------------------------------------------------
         redirect_to = request.GET.get("next", "")
 
-        print colored("[---  DUMP   ---] NEXT : %s" % redirect_to, "yellow")
+        print colored("[---  DUMP   ---] NEXT : {}".format(
+            redirect_to,
+            ), "yellow")
+
+        # ---------------------------------------------------------------------
+        # --- Prepare Form(s).
+        # ---------------------------------------------------------------------
+        form = self.get_form()
 
         if request.user.is_authenticated():
             if redirect_to:
@@ -50,7 +66,7 @@ class LoginViewSet(TemplateView):
                 reverse("my-profile-view"))
 
         return render(
-            request, "accounts/registration/account-login.html", {
+            request, "accounts/registration/login.html", {
                 "form":     form,
                 "next":     redirect_to,
             })
@@ -63,6 +79,20 @@ class LoginViewSet(TemplateView):
             self.__class__.__name__,
             inspect.stack()[0][3]
             ), "green")
+
+        # ---------------------------------------------------------------------
+        # --- Parse Request.
+        # ---------------------------------------------------------------------
+        redirect_to = request.GET.get("next", "")
+
+        print colored("[---  DUMP   ---] NEXT : {}".format(
+            redirect_to,
+            ), "yellow")
+
+        # ---------------------------------------------------------------------
+        # --- Prepare Form(s).
+        # ---------------------------------------------------------------------
+        form = self.get_form()
 
         if form.is_valid():
             # if not redirect_to:
