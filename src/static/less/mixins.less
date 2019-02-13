@@ -1,6 +1,212 @@
 /*****************************************************************************/
 /*****************************************************************************/
 /***                                                                       ***/
+/*** INSTANCE (Account, Blog, Challenge, Forum, Organization, Team)        ***/
+/***                                                                       ***/
+/*****************************************************************************/
+/*****************************************************************************/
+#instance {
+    .page-list() {
+        //background-color:       @white;
+        padding-top:            10px;
+        padding-bottom:         50px;
+
+        h1, h2, h3, h4 {
+            font-weight:        bold;
+            text-transform:     uppercase;
+            margin-top:         0px;
+            padding-bottom:     5px;
+        }
+        h4 {
+            border-bottom:      1px solid @gray-lightest;
+        }
+        a.btn,
+        button.btn {
+            .pb-big-button(
+                @text-align:    left,
+                @width:         100%,
+                @ptop:          8px
+            );
+        }
+        a.btn.btn-rounded {
+            .pb-big-rounded-button(
+                @text-align:    left,
+                @width:         auto,
+                @ptop:          8px
+            );
+        }
+        a.btn.btn-empty {
+            .pb-big-button(
+                @color:         @btn-primary-bg,
+                @bgcolor:       @btn-primary-color,
+                @bdcolor:       @btn-primary-color,
+                @width:         auto,
+                @ptop:          8px
+            );
+        }
+        blockquote {
+            padding:            5px 10px;
+            margin-bottom:      10px;
+
+            p {
+                font-size:      @font-size-base;
+                margin-bottom:  0px;
+            }
+        }
+    }
+    .page-list-no-btn() {
+        //background-color:       @white;
+        padding-top:            10px;
+        padding-bottom:         50px;
+
+        h1, h2, h3, h4 {
+            font-weight:        bold;
+            text-transform:     uppercase;
+            margin-top:         0px;
+            padding-bottom:     5px;
+        }
+        h4 {
+            border-bottom:      1px solid @gray-lightest;
+        }
+        a.btn {
+            .pb-big-button(
+                @text-align:    left,
+                @width:         100%,
+                @ptop:          8px
+            );
+        }
+        a.btn.btn-rounded {
+            .pb-big-rounded-button(
+                @text-align:    left,
+                @width:         auto,
+                @ptop:          8px
+            );
+        }
+        a.btn.btn-empty {
+            .pb-big-button(
+                @color:         @btn-primary-bg,
+                @bgcolor:       @btn-primary-color,
+                @bdcolor:       @btn-primary-color,
+                @width:         auto,
+                @ptop:          8px
+            );
+        }
+        blockquote {
+            padding:            5px 10px;
+            margin-bottom:      10px;
+
+            p {
+                font-size:      @font-size-base;
+                margin-bottom:  0px;
+            }
+        }
+    }
+    .page-create-edit() {
+        //background-color:       @white;
+        padding-top:            10px;
+        padding-bottom:         50px;
+
+        h3 {
+            color:              @brand-primary;
+            display:            inline-block;
+            font-weight:        bold;
+            width:              100%;
+            margin:             0 0 10px 0;
+        }
+        p {
+            color:              @gray-light;
+        }
+        a.btn {
+            .pb-big-button(
+                @text-align:    left,
+                @width:         100%,
+                @ptop:          8px,
+                @mbottom:       10px
+            );
+        }
+        a.btn.btn-rounded {
+            .pb-big-rounded-button(
+                @text-align:    left,
+                @width:         auto,
+                @ptop:          8px,
+                @mbottom:       10px
+            );
+        }
+    }
+    .page-details() {
+        //background-color:       @white;
+        padding-top:            10px;
+        padding-bottom:         50px;
+
+        h1, h2, h3 {
+            font-weight:        bold;
+            text-transform:     uppercase;
+            margin-top:         0px;
+            padding-bottom:     5px;
+            border-bottom:      1px solid @gray-lightest;
+        }
+        h4 {
+            font-weight:        bold;
+            text-transform:     uppercase;
+            margin:             0 0 5px 0;
+            padding:            10px 0;
+            border-bottom:      1px solid @gray-lightest;
+
+            // ----------------------------------------------------------------
+            // --- Panels / Tabs collapsible
+            &.panel-title {
+                text-transform:     none !important;
+                margin:             0px  !important;
+                padding:            0px  !important;
+                border-bottom:      none !important;
+            }
+        }
+        blockquote {
+            padding:            5px 10px;
+            margin-bottom:      10px;
+
+            p {
+                font-size:      @font-size-base;
+                margin-bottom:  0px;
+            }
+        }
+        input {
+            margin-bottom:      10px;
+
+            .pb-input-text(
+                @bdcolor:       @gray-lightest
+            );
+        }
+        a.btn {
+            .pb-big-button(
+                @text-align:    left,
+                @width:         100%,
+                @ptop:          8px,
+                @mbottom:       10px
+            );
+        }
+        a.btn.btn-rounded,
+        button.btn.btn-rounded {
+            .pb-big-rounded-button(
+                @text-align:    left,
+                @width:         auto,
+                @ptop:          8px
+            );
+        }
+
+        .instance-attachments,
+        .instance-comments {
+            background-color:   @white;
+            padding:            10px;
+            margin-bottom:      10px;
+        }
+    }
+}
+
+
+/*****************************************************************************/
+/*****************************************************************************/
+/***                                                                       ***/
 /*** DIFFERENT                                                             ***/
 /***                                                                       ***/
 /*****************************************************************************/

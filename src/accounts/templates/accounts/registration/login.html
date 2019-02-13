@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-xs-24 col-sm-24 col-md-24">
                 <div class="breadcrumbs pull-right">
-                    <a href="{% url 'account-list' %}">{% trans "Members" %}</a>
+                    <a href="{# url 'account-list' #}">{% trans "Members" %}</a>
                     <i class="fa fa-chevron-circle-right"></i>
                     <a href="{% url 'login' %}">{% trans "Sign in" %}</a>
                 </div>
@@ -24,12 +24,14 @@
         <div class="row">
             <div class="col-xs-24 col-xs-offset-0 col-sm-24 col-sm-offset-0 col-md-18 col-md-offset-3">
                 <div class="row">
+                    {% comment %}
                     <div class="col-xs-24 col-sm-24 col-md-24 social-buttons" align="center">
                         <button class="btn btn-facebook" onclick="javascript:document.location.href='{% url 'social:begin' backend='facebook' %}';"><i class="fa fa-facebook fa-fw fa-2x"></i></button>
                         {#<button class="btn btn-twitter" onclick="javascript:document.location.href='{% url 'social:begin' backend='twitter' %}';"><i class="fa fa-twitter fa-fw fa-2x"></i></button>#}
                         <button class="btn btn-linkedin" onclick="javascript:document.location.href='{% url 'social:begin' backend='linkedin' %}';"><i class="fa fa-linkedin fa-fw fa-2x"></i></button>
                         <button class="btn btn-google-plus" onclick="javascript:document.location.href='{% url 'social:begin' backend='google-oauth2' %}';"><i class="fa fa-google-plus fa-fw fa-2x"></i></button>
                     </div>
+                    {% endcomment %}
                 </div>
 
                 <div class="delimiter"></div>
@@ -85,7 +87,7 @@
                     {% blocktrans %}
                         <p>Forgot <a class="" title="" data-original-title="" data-content="" data-placement="bottom" data-container="body" data-trigger="hover" data-toggle="modal" href="#forgotPasswordPopupModal" tabindex="-1">Username / Password</a>?</p>
                     {% endblocktrans %}
-                        <p>{% trans "Don't have an Account?" %} <a href="{% url 'signup' %}">{% trans "Sign-up now" %}</a>.</p>
+                        <p>{% trans "Don't have an Account?" %} <a href="{# url 'signup' #}">{% trans "Sign-up now" %}</a>.</p>
                     </div>
                 </div>
             </div>

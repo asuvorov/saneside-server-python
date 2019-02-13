@@ -1,5 +1,10 @@
 import inspect
 
+from django.conf import settings
+from django.contrib.auth import (
+    authenticate,
+    login,
+    )
 from django.contrib.auth.views import LoginView
 from django.core.urlresolvers import reverse
 from django.http import (
@@ -11,6 +16,7 @@ from django.shortcuts import (
     redirect,
     render,
     )
+from django.utils.translation import ugettext as _
 
 from termcolor import colored
 
@@ -107,35 +113,34 @@ class LoginViewSet(LoginView):
             if user:
                 login(request, user)
 
-                if data["remember_me"]:
-                    request.session.set_expiry(settings.SESSION_COOKIE_AGE)
-                else:
-                    request.session.set_expiry(0)
-                # return HttpResponseRedirect(redirect_to)
+                # if data["remember_me"]:
+                #     request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                # else:
+                #     request.session.set_expiry(0)
 
-                # -------------------------------------------------------------
-                # --- Track IP.
-                UserLogin.objects.insert(
-                    request=request)
+                # # -------------------------------------------------------------
+                # # --- Track IP.
+                # UserLogin.objects.insert(
+                #     request=request)
 
-                # -------------------------------------------------------------
-                # --- Save the Log.
-                papertrail.log(
-                    event_type="user-logged-in",
-                    message="User logged in",
-                    data={
-                        "ip":           ip,
-                        "country":      g.country(ip),
-                        "city":         g.city(ip),
-                        "user":         user.email,
-                        "data":         data,
-                    },
-                    # timestamp=timezone.now(),
-                    targets={
-                        "user":         user,
-                        "profile":      user.profile
-                    },
-                    )
+                # # -------------------------------------------------------------
+                # # --- Save the Log.
+                # papertrail.log(
+                #     event_type="user-logged-in",
+                #     message="User logged in",
+                #     data={
+                #         "ip":           ip,
+                #         "country":      g.country(ip),
+                #         "city":         g.city(ip),
+                #         "user":         user.email,
+                #         "data":         data,
+                #     },
+                #     # timestamp=timezone.now(),
+                #     targets={
+                #         "user":         user,
+                #         "profile":      user.profile
+                #     },
+                #     )
 
                 if redirect_to:
                     return HttpResponseRedirect(redirect_to)
@@ -146,15 +151,15 @@ class LoginViewSet(LoginView):
                 form.add_non_field_error(
                     _("Sorry, you have entered wrong Email or Password"))
 
-        # ---------------------------------------------------------------------
-        # --- Failed to log in
-        # --- Save the Log
-        papertrail.log(
-            event_type="user-login-failed",
-            message="user login failed",
-            data={
-                "form":     form_field_error_list(form),
-            },
-            # timestamp=timezone.now(),
-            targets={},
-            )
+        # # ---------------------------------------------------------------------
+        # # --- Failed to log in
+        # # --- Save the Log
+        # papertrail.log(
+        #     event_type="user-login-failed",
+        #     message="user login failed",
+        #     data={
+        #         "form":     form_field_error_list(form),
+        #     },
+        #     # timestamp=timezone.now(),
+        #     targets={},
+        #     )

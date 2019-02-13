@@ -56,6 +56,28 @@ body {
     }
 
     // ------------------------------------------------------------------------
+    // --- Navigation Header with Breadcrumbs
+    // ------------------------------------------------------------------------
+    .nav-header {
+        color:              @gray-dark;
+        text-transform:     uppercase;
+        background-color:   @white;
+        padding:            10px;
+
+        div.breadcrumbs {
+            font-size:      @font-size-small;
+            //padding-top:    10px;
+
+            a {
+                color:      @gray-dark;
+            }
+            i {
+                padding:    0 5px;
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------------
     // --- Feature.
     // ------------------------------------------------------------------------
     .feature {

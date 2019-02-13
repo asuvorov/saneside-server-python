@@ -18,6 +18,8 @@ class LoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         """Docstring."""
+        request = kwargs.pop("request")
+
         super(LoginForm, self).__init__(*args, **kwargs)
 
     username = forms.CharField(
