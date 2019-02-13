@@ -70,3 +70,22 @@ class PrivacyPolicyViewSet(TemplateView):
 
         return render(
             request, "home/privacy-policy.html", {})
+
+
+# -----------------------------------------------------------------------------
+# --- Privacy Policy.
+# -----------------------------------------------------------------------------
+class UserAgreementViewSet(TemplateView):
+    """User Agreement View Set."""
+
+    # @cache_page(60 * 60)
+    def get(self, request, *args, **kwargs):
+        """Docstring."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        return render(
+            request, "home/user-agreement.html", {})
