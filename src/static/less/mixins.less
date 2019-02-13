@@ -170,13 +170,13 @@
                 margin-bottom:  0px;
             }
         }
-        input {
-            margin-bottom:      10px;
+        // input {
+        //     margin-bottom:      10px;
 
-            .pb-input-text(
-                @bdcolor:       @gray-lightest
-            );
-        }
+        //     .pb-input-text(
+        //         @bdcolor:       @gray-lightest
+        //     );
+        // }
         a.btn {
             .pb-big-button(
                 @text-align:    left,
@@ -238,4 +238,141 @@
     line-height:            (@radius * 2);
     text-align:             center;
     background:             @background-color;
+}
+
+
+/*****************************************************************************/
+/*****************************************************************************/
+/***                                                                       ***/
+/*** BUTTONS                                                               ***/
+/***                                                                       ***/
+/*****************************************************************************/
+/*****************************************************************************/
+.pb-big-button(
+        @color:         @btn-primary-color,
+        @font-size:     @font-size-small,
+        @font-weight:   bold,
+        @text-align:    left,
+        @bgcolor:       @btn-primary-bg,
+        @bdcolor:       @btn-primary-border,
+        @width:         auto,
+        @height:        36px,
+        @ptop:          6px,
+        @pright:        12px,
+        @pbottom:       6px,
+        @pleft:         12px,
+        @mtop:          0,
+        @mright:        0,
+        @mbottom:       0,
+        @mleft:         0) {
+    color:                  @color;
+    font-size:              @font-size;
+    font-weight:            @font-weight;
+    text-align:             @text-align;
+    text-transform:         uppercase;
+
+    width:                  @width;
+    height:                 @height;
+    padding:                @ptop @pright @pbottom @pleft;
+    margin:                 @mtop @mright @mbottom @mleft;
+
+    background-color:       @bgcolor;
+    border:                 1px @bdcolor solid;
+
+    &:hover {
+        background-color:   darken(@bgcolor, 10%);
+    }
+
+    .caret {
+        position:           absolute;
+        left:               90%;
+        top:                45%;
+    }
+}
+
+.btn-centered {
+    text-align:             center !important;
+}
+
+.btn-default {
+    color:                  @btn-default-color      !important;
+    background-color:       @btn-default-bg         !important;
+    border-color:           @btn-default-border     !important;
+}
+.btn-primary {
+    color:                  @btn-primary-color      !important;
+    background-color:       @btn-primary-bg         !important;
+    border-color:           @btn-primary-border     !important;
+}
+.btn-success {
+    color:                  @btn-success-color      !important;
+    background-color:       @btn-success-bg         !important;
+    border-color:           @btn-success-border     !important;
+}
+.btn-info {
+    color:                  @btn-info-color         !important;
+    background-color:       @btn-info-bg            !important;
+    border-color:           @btn-info-border        !important;
+}
+.btn-warning {
+    color:                  @btn-warning-color      !important;
+    background-color:       @btn-warning-bg         !important;
+    border-color:           @btn-warning-border     !important;
+}
+.btn-danger {
+    color:                  @btn-danger-color       !important;
+    background-color:       @btn-danger-bg          !important;
+    border-color:           @btn-danger-border      !important;
+}
+
+.pb-big-rounded-button(
+        @color:         @btn-primary-color,
+        @font-size:     @font-size-small,
+        @font-weight:   bold,
+        @text-align:    center,
+        @bgcolor:       @btn-primary-bg,
+        @bdcolor:       @btn-primary-border,
+        @width:         auto,
+        @height:        36px,
+        @ptop:          6px,
+        @pright:        12px,
+        @pbottom:       6px,
+        @pleft:         12px,
+        @mtop:          0,
+        @mright:        0,
+        @mbottom:       0,
+        @mleft:         0) {
+    color:                  @color;
+    font-size:              @font-size;
+    font-weight:            @font-weight;
+    text-align:             @text-align;
+    text-transform:         uppercase;
+
+    width:                  @width;
+    height:                 @height;
+    padding-top:            (@height - @font-size) / 4 - 1;
+    padding-bottom:         (@height - @font-size) / 4 + 1;
+    padding-left:           (@height - @font-size) / 4;
+    padding-right:          (@height - @font-size) / 4;
+    margin:                 @mtop @mright @mbottom @mleft;
+
+    background-color:       @bgcolor;
+    border:                 1px @bdcolor solid;
+    border-radius:          @height / 2;
+
+    i {
+        color:              @bgcolor;
+        margin-right:       5px;
+
+        .circle(
+            @radius:            @font-size,
+            @background-color:  @color,
+            @border-color:      @color,
+            @border:            0.0
+        );
+    }
+
+    &:hover {
+        background-color:       darken(@bgcolor, 10%);
+    }
 }

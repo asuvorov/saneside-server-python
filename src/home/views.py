@@ -12,7 +12,7 @@ from termcolor import colored
 
 
 # -----------------------------------------------------------------------------
-# --- Index
+# --- Index.
 # -----------------------------------------------------------------------------
 class IndexViewSet(TemplateView):
     """Index View Set."""
@@ -51,3 +51,22 @@ class IndexViewSet(TemplateView):
             request, "home/index.html", {
                 "timeline_qs":  timeline_qs,
             })
+
+
+# -----------------------------------------------------------------------------
+# --- Privacy Policy.
+# -----------------------------------------------------------------------------
+class PrivacyPolicyViewSet(TemplateView):
+    """Privacy Policy View Set."""
+
+    # @cache_page(60 * 60)
+    def get(self, request, *args, **kwargs):
+        """Docstring."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        return render(
+            request, "home/privacy-policy.html", {})
