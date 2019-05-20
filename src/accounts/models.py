@@ -31,6 +31,15 @@ class User(AbstractUser, BaseModel):
 
     Attributes
     ----------
+    username : str
+        User Name
+    first_name : str, optional
+        First Name.
+    last_name : str, optional
+        Last Name.
+    email : str, optional
+        Email.
+
     avatar: obj, optional
         User Avatar.
     nickname: obj, optional
@@ -121,8 +130,8 @@ class User(AbstractUser, BaseModel):
     is_newly_created = models.BooleanField(
         default=True)
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username"]
+    USERNAME_FIELD = "username"
+    # REQUIRED_FIELDS = ["username", ]
 
     class Meta:
         """Meta Class."""

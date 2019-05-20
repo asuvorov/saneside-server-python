@@ -1,3 +1,8 @@
+import inspect
+
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
 from rest_framework import (
     mixins,
     parsers,
@@ -19,6 +24,10 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
+
+from termcolor import colored
+
+from ddutils.version import get_version
 
 
 # =============================================================================
@@ -53,8 +62,12 @@ class APIStatusViewSet(APIView):
         request : obj
 
         """
-        # print colored("***" * 27, "green")
-        # print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+
+        # ---------------------------------------------------------------------
+        # --- Initials.
+        # ---------------------------------------------------------------------
 
         # ---------------------------------------------------------------------
         # --- Retrieve Data from the Request.
@@ -66,8 +79,13 @@ class APIStatusViewSet(APIView):
 
         # ---------------------------------------------------------------------
         # --- Send the Response.
+        # ---------------------------------------------------------------------
         return Response({
-            "message":      _("Successfully sent the Password Renewal Link."),
+            "code":         "",
+            "message":      "",
+            "response":     {
+                "status":   _("OK"),
+            }
         }, status=status.HTTP_200_OK)
 
 api_status = APIStatusViewSet.as_view()
@@ -105,8 +123,12 @@ class APIVersionViewSet(APIView):
         request : obj
 
         """
-        # print colored("***" * 27, "green")
-        # print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+
+        # ---------------------------------------------------------------------
+        # --- Initials.
+        # ---------------------------------------------------------------------
 
         # ---------------------------------------------------------------------
         # --- Retrieve Data from the Request.
@@ -118,8 +140,13 @@ class APIVersionViewSet(APIView):
 
         # ---------------------------------------------------------------------
         # --- Send the Response.
+        # ---------------------------------------------------------------------
         return Response({
-            "message":      _("Successfully sent the Password Renewal Link."),
+            "code":         "",
+            "message":      "",
+            "response":     {
+                "status":   get_version(settings.PROJECT_PATH, "__init__.py"),
+            }
         }, status=status.HTTP_200_OK)
 
 api_version = APIVersionViewSet.as_view()

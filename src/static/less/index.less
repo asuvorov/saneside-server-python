@@ -210,6 +210,33 @@
     }
 }
 
+#about-us,
+#our-partners,
+#privacy-policy,
+#user-agreement {
+    // --- Mixin
+    #instance.page-list();
+
+    text-align:             justify;
+    background-color:       @white;
+    padding:                10px;
+    margin-top:             10px;
+    margin-bottom:          20px;
+
+    p {
+        text-transform:     none;
+
+        strong a {
+            font-weight:        600;
+            text-transform:     none;
+        }
+    }
+
+    .section {
+        margin-bottom:      20px;
+    }
+}
+
 
 // ----------------------------------------------------------------------------
 // --- Make Design more responsive

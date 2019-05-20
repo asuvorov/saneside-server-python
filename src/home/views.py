@@ -11,9 +11,9 @@ from termcolor import colored
 
 
 # -----------------------------------------------------------------------------
-# --- Index
+# --- Index.
 # -----------------------------------------------------------------------------
-@cache_page(60 * 60)
+# @cache_page(60 * 60)
 def index(request):
     """Docstring."""
     print colored("***" * 27, "green")
@@ -28,19 +28,28 @@ def index(request):
     # print colored("[---  DUMP   ---] COUNTRY : %s" % country, "yellow")
     # print colored("[---  DUMP   ---] CITY    : %s" % city, "yellow")
 
-    timeline_qs = []
-    # timeline_qs = sorted(
-    #     chain(
-    #         Post.objects.all(),
-    #         Challenge.objects.get_upcoming(),
-    #         Organization.objects.filter(
-    #             is_hidden=False,
-    #             is_deleted=False,
-    #         )
-    #     ),
-    #     key=attrgetter("created"))[:10]
+    return render(
+        request, "home/index.html", {})
+
+
+# -----------------------------------------------------------------------------
+# --- Terms & Conditions.
+# -----------------------------------------------------------------------------
+# @cache_page(60 * 60 * 24)
+def privacy_policy(request):
+    """Docstring."""
+    print colored("***" * 27, "green")
+    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
 
     return render(
-        request, "home/index.html", {
-            "timeline_qs":  timeline_qs,
-        })
+        request, "home/privacy-policy.html", {})
+
+
+# @cache_page(60 * 60 * 24)
+def user_agreement(request):
+    """Docstring."""
+    print colored("***" * 27, "green")
+    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
+
+    return render(
+        request, "home/user-agreement.html", {})

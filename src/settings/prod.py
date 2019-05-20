@@ -6,12 +6,12 @@ DEBUG = config("DEBUG", default=False)
 
 DATABASES = {
     "default": {
-        "ENGINE":   config("PROD_DB_ENGINE", default=""),
-        "NAME":     config("PROD_DB_NAME", default=""),
-        "USER":     config("PROD_DB_USER", default=""),
-        "PASSWORD": config("PROD_DB_PASSWORD", default=""),
-        "HOST":     config("PROD_DB_HOST", default=""),
-        "PORT":     config("PROD_DB_PORT", default=""),
+        "ENGINE":   config("DB_ENGINE", default=""),
+        "NAME":     config("DB_NAME", default=""),
+        "USER":     config("DB_USER", default=""),
+        "PASSWORD": config("DB_PASSWORD", default=""),
+        "HOST":     config("DB_HOST", default=""),
+        "PORT":     config("DB_PORT", default=""),
         "OPTIONS": {
             # "autocommit": True,
         }
