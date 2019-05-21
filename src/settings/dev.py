@@ -20,24 +20,25 @@ DATABASES = {
 
 SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", default=True, cast=bool)
 
+
 ###############################################################################
 ### AWS SETTINGS                                                            ###
 ###############################################################################
-# AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default="")
-# AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="")
-# AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="")
-# AWS_PRELOAD_METADATA = config("AWS_PRELOAD_METADATA", default=True, cast=bool)
-# AWS_QUERYSTRING_AUTH = config("AWS_QUERYSTRING_AUTH", default=False, cast=bool)
-# AWS_HEADERS = {
-#     "Cache-Control":    "max-age=86400",
-# }
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default="")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="")
+AWS_PRELOAD_METADATA = config("AWS_PRELOAD_METADATA", default=True, cast=bool)
+AWS_QUERYSTRING_AUTH = config("AWS_QUERYSTRING_AUTH", default=False, cast=bool)
+AWS_HEADERS = {
+    "Cache-Control":    "max-age=86400",
+}
 
-# DEFAULT_FILE_STORAGE = "ddutils.S3.MediaS3BotoStorage"
-# # STATICFILES_STORAGE = "s3utils.StaticS3BotoStorage"
+DEFAULT_FILE_STORAGE = "ddutils.S3.MediaS3BotoStorage"
+# STATICFILES_STORAGE = "s3utils.StaticS3BotoStorage"
 
-# S3_URL = "http://%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
-# # STATIC_URL = S3_URL + "/static/"
-# MEDIA_URL = S3_URL + "/media/"
+S3_URL = "http://%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+# STATIC_URL = S3_URL + "/static/"
+MEDIA_URL = S3_URL + "/media/"
 
 
 ###############################################################################
