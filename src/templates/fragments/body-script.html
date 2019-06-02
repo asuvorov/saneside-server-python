@@ -65,6 +65,7 @@
     /*************************************************************************/
     // ------------------------------------------------------------------------
     // --- Initialize Carousel
+    // ------------------------------------------------------------------------
     $("#index-carousel").carousel({
         interval:       5000
     })
@@ -72,4 +73,23 @@
         interval:       3000
     })
 
+    // ------------------------------------------------------------------------
+    // --- Initialize Max Length
+    // ------------------------------------------------------------------------
+    $("input[maxlength]").maxlength({
+        alwaysShow:         false,
+        threshold:          10,
+        warningClass:       "label label-success",
+        limitReachedClass:  "label label-danger",
+        placement:          "bottom-right",
+        validate:           true
+    });
+    $("textarea[maxlength]").maxlength({
+        alwaysShow:         false,
+        threshold:          100,
+        warningClass:       "label label-success",
+        limitReachedClass:  "label label-danger",
+        placement:          "bottom-right",
+        validate:           true
+    });
 </script>

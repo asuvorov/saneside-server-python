@@ -280,6 +280,7 @@ BOWER_PATH = "/usr/local/bin/bower"
 BOWER_INSTALLED_APPS = (
     "awesome-bootstrap-checkbox",
     "bootstrap#3.3.7",
+    "bootstrap-maxlength",
     "fontawesome#5.6.3",
     "ismobilejs#0.5.0",
     "jquery#3.3.1",
