@@ -282,6 +282,8 @@ BOWER_INSTALLED_APPS = (
     "fontawesome#5.6.3",
     "ismobilejs#0.5.0",
     "jquery#3.3.1",
+    "jquery-popup-overlay",
+    "moment#2.24.0",
 )
 
 

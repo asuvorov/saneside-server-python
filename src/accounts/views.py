@@ -1,5 +1,44 @@
 import inspect
 
+from django.conf import settings
+from django.contrib.auth import (
+    authenticate,
+    login,
+    )
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import (
+    default_token_generator as token_generator
+    )
+from django.contrib.auth.views import (
+    auth_login,
+    logout,
+    )
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.gis.geoip import GeoIP
+from django.core.paginator import (
+    EmptyPage,
+    PageNotAnInteger,
+    Paginator,
+    )
+from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.http import (
+    HttpResponse,
+    HttpResponseRedirect,
+    )
+from django.shortcuts import (
+    get_object_or_404,
+    render,
+    )
+from django.utils.http import (
+    base36_to_int,
+    int_to_base36,
+    )
+from django.utils.translation import ugettext as _
+from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import csrf_exempt
+
 from termcolor import colored
 
 from accounts.forms import UserForm
@@ -49,7 +88,7 @@ def account_signup(request):
         # if (
         #         uform.is_valid() and pform.is_valid() and
         #         aform.is_valid() and nform.is_valid()):
-        if uform.is_valid() and pform.is_valid():
+        if uform.is_valid():
             # -----------------------------------------------------------------
             # --- Create User.
             user = uform.save(commit=False)
@@ -57,14 +96,6 @@ def account_signup(request):
             user.save()
             user.set_password(uform.cleaned_data["password"])
             user.save()
-
-            # -----------------------------------------------------------------
-            # --- Create User Profile.
-            profile = pform.save(commit=False)
-            profile.user = user
-            # profile.address = aform.save(commit=True)
-            # profile.phone_number = nform.save(commit=True)
-            profile.save()
 
             # -----------------------------------------------------------------
             # --- Create User Privacy.
@@ -98,42 +129,42 @@ def account_signup(request):
 
             # -----------------------------------------------------------------
             # --- Send Email Notification(s).
-            profile.email_notify_signup_confirmation(
+            user.email_notify_signup_confirmation(
                 request=request,
                 url=confirmation_link)
 
             # -----------------------------------------------------------------
             # --- Save the Log.
-            papertrail.log(
-                event_type="new-user-signed-up",
-                message="New User has signed up",
-                data={
-                    "user":         user.email,
-                },
-                # timestamp=timezone.now(),
-                targets={
-                    "user":         user,
-                    "profile":      profile,
-                },
-                )
+            # papertrail.log(
+            #     event_type="new-user-signed-up",
+            #     message="New User has signed up",
+            #     data={
+            #         "user":         user.email,
+            #     },
+            #     # timestamp=timezone.now(),
+            #     targets={
+            #         "user":         user,
+            #         "profile":      profile,
+            #     },
+            #     )
 
             # -----------------------------------------------------------------
             # --- Save the Log.
-            papertrail.log(
-                event_type="user-sign-up-submitted",
-                message="User sign up submitted",
-                data={
-                    "ip":           ip,
-                    "country":      g.country(ip),
-                    "city":         g.city(ip),
-                    "uform":        form_field_error_list(uform),
-                    "pform":        form_field_error_list(pform),
-                    # "aform":        form_field_error_list(aform),
-                    # "nform":        form_field_error_list(nform),
-                },
-                # timestamp=timezone.now(),
-                targets={},
-                )
+            # papertrail.log(
+            #     event_type="user-sign-up-submitted",
+            #     message="User sign up submitted",
+            #     data={
+            #         "ip":           ip,
+            #         "country":      g.country(ip),
+            #         "city":         g.city(ip),
+            #         "uform":        form_field_error_list(uform),
+            #         "pform":        form_field_error_list(pform),
+            #         # "aform":        form_field_error_list(aform),
+            #         # "nform":        form_field_error_list(nform),
+            #     },
+            #     # timestamp=timezone.now(),
+            #     targets={},
+            #     )
 
             return render(
                 request,
@@ -144,27 +175,26 @@ def account_signup(request):
         # ---------------------------------------------------------------------
         # --- Failed to sign up.
         # --- Save the Log.
-        papertrail.log(
-            event_type="user-sign-up-failed",
-            message="User sign up failed",
-            data={
-                "ip":           ip,
-                "country":      g.country(ip),
-                "city":         g.city(ip),
-                "uform":        form_field_error_list(uform),
-                "pform":        form_field_error_list(pform),
-                # "aform":        form_field_error_list(aform),
-                # "nform":        form_field_error_list(nform),
-            },
-            # timestamp=timezone.now(),
-            targets={},
-            )
+        # papertrail.log(
+        #     event_type="user-sign-up-failed",
+        #     message="User sign up failed",
+        #     data={
+        #         "ip":           ip,
+        #         "country":      g.country(ip),
+        #         "city":         g.city(ip),
+        #         "uform":        form_field_error_list(uform),
+        #         "pform":        form_field_error_list(pform),
+        #         # "aform":        form_field_error_list(aform),
+        #         # "nform":        form_field_error_list(nform),
+        #     },
+        #     # timestamp=timezone.now(),
+        #     targets={},
+        #     )
 
     return render(
         # request, "accounts/account_signup_all.html", {
         request, "accounts/account-signup.html", {
             "uform":    uform,
-            "pform":    pform,
             # "aform":    aform,
             # "nform":    nform,
         })
