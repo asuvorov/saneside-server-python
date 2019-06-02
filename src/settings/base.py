@@ -424,6 +424,20 @@ PASSWORD_COMPLEXITY = {         # You can omit any or all of these for no Limit 
 ###############################################################################
 ### DJANGO SIMPLE CAPTCHA                                                   ###
 ###############################################################################
+INSTALLED_APPS += (
+    "captcha",
+)
+
+CAPTCHA_FONT_SIZE = 22
+CAPTCHA_BACKGROUND_COLOR = "#ffffff"
+CAPTCHA_FOREGROUND_COLOR = "#001100"
+CAPTCHA_PUNCTUATION = '''_"',.;:-'''
+CAPTCHA_TIMEOUT = 5  # Minutes
+CAPTCHA_LENGTH = 4  # Chars
+CAPTCHA_IMAGE_BEFORE_FIELD = True
+CAPTCHA_DICTIONARY_MIN_LENGTH = 0
+CAPTCHA_DICTIONARY_MAX_LENGTH = 99
+CAPTCHA_TEST_MODE = False
 
 
 ###############################################################################

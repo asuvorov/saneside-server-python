@@ -2,10 +2,13 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from termcolor import colored
+
 from ddcore.models import BaseModel
 
 from accounts.choices import (
-    Gender, gender_choices)
+    Gender, gender_choices,
+)
 
 
 # =============================================================================

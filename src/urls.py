@@ -50,12 +50,12 @@ urlpatterns = [
     #     name="django.contrib.sitemaps.views.sitemap"),
 
     url(r"^", include("home.urls")),
-    # url(r"^accounts/", include("accounts.urls")),
+    url(r"^accounts/", include("accounts.urls")),
     url(r"^api/", include("api.urls")),
     # url(r"^blog/", include("blog.urls")),
     # url(r"^core/", include("core.urls")),
     # url(r"^forum/", include("foro.urls")),
-    url(r"^events/", include("events.urls")),
+    # url(r"^events/", include("events.urls")),
     # url(r"^invites/", include("invites.urls")),
     # url(r"^organizations/", include("organizations.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,6 +2,8 @@ import inspect
 
 from termcolor import colored
 
+from accounts.forms import UserForm
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,8 +29,6 @@ def account_signup(request):
     # --- Prepare Form(s).
     # -------------------------------------------------------------------------
     uform = UserForm(
-        request.POST or None, request.FILES or None)
-    pform = UserProfileForm(
         request.POST or None, request.FILES or None)
     """
     aform = AddressForm(
