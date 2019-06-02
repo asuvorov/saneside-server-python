@@ -2,12 +2,15 @@ import inspect
 
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
+from django.core.files import File
+from django.core.files.storage import default_storage as storage
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from termcolor import colored
 
 from ddcore.models import BaseModel
+from ddutils.uuids import get_unique_filename
 
 from accounts.choices import (
     Gender, gender_choices,
@@ -26,7 +29,7 @@ def user_directory_path(instance, filename):
     """
 
     return "accounts/{id}/avatars/{fname}".format(
-        id=instance.user.id,
+        id=instance.id,
         fname=get_unique_filename(
             filename.split("/")[-1]
             ))
@@ -216,10 +219,10 @@ class User(AbstractUser, BaseModel):
     def completeness_total(self):
         """Return Profile Completeness."""
         completeness_user = (
-            int(bool(self.user.username)) +
-            int(bool(self.user.first_name)) +
-            int(bool(self.user.last_name)) +
-            int(bool(self.user.email))
+            int(bool(self.username)) +
+            int(bool(self.first_name)) +
+            int(bool(self.last_name)) +
+            int(bool(self.email))
         )
 
         completeness_profile = (
@@ -268,18 +271,18 @@ class User(AbstractUser, BaseModel):
     @property
     def full_name_straight(self):
         """Docstring."""
-        return self.user.first_name + " " + self.user.last_name
+        return self.first_name + " " + self.last_name
 
     @property
     def full_name(self):
         """Docstring."""
-        return self.user.last_name + ", " + self.user.first_name
+        return self.last_name + ", " + self.first_name
 
     @property
     def short_name(self):
         """Docstring."""
         try:
-            return self.user.first_name + " " + self.user.last_name[0] + "."
+            return self.first_name + " " + self.last_name[0] + "."
         except Exception as e:
             print colored("###" * 27, "white", "on_red")
             print colored("### EXCEPTION @ `{module}`: {msg}".format(
@@ -287,7 +290,7 @@ class User(AbstractUser, BaseModel):
                 msg=str(e),
                 ), "white", "on_red")
 
-            return self.user.first_name
+            return self.first_name
 
     @property
     def auth_name(self):
@@ -298,7 +301,7 @@ class User(AbstractUser, BaseModel):
             elif self.nickname:
                 return self.nickname
             else:
-                return self.user.email.split("@")[0]
+                return self.email.split("@")[0]
         except:
             pass
 
@@ -307,7 +310,7 @@ class User(AbstractUser, BaseModel):
     @property
     def name(self):
         """Docstring."""
-        return self.user.get_full_name()
+        return self.get_full_name()
 
     # -------------------------------------------------------------------------
     # --- Methods.
@@ -321,7 +324,7 @@ class User(AbstractUser, BaseModel):
         # --- Render HTML Email Content.
         greetings = _(
             "Dear, %(name)s.") % {
-                "name":     self.user.first_name,
+                "name":     self.first_name,
             }
         htmlbody = _(
             "<p>To finish your registration Process, please, follow this \"<a href=\"%(confirmation_link)s\">Link</a>\".</p>") % {
@@ -351,7 +354,7 @@ class User(AbstractUser, BaseModel):
             },
             from_email=settings.EMAIL_SENDER,
             to=[
-                self.user.email,
+                self.email,
             ],
             headers=None,
         )
@@ -365,7 +368,7 @@ class User(AbstractUser, BaseModel):
         # ---  Render HTML Email Content.
         greetings = _(
             "Dear, %(name)s.") % {
-                "name":     self.user.first_name,
+                "name":     self.first_name,
             }
         htmlbody = _(
             "<p>Your Account was successfully confirmed.</p>"
@@ -395,7 +398,7 @@ class User(AbstractUser, BaseModel):
             },
             from_email=settings.EMAIL_SENDER,
             to=[
-                self.user.email,
+                self.email,
             ],
             headers=None,
         )
@@ -409,7 +412,7 @@ class User(AbstractUser, BaseModel):
         # ---  Render HTML Email Content.
         greetings = _(
             "Dear, %(name)s.") % {
-                "name":     self.user.first_name,
+                "name":     self.first_name,
             }
         htmlbody = _(
             "<p>You are about to restore your Password on SaneSide.</p>"
@@ -439,7 +442,7 @@ class User(AbstractUser, BaseModel):
             },
             from_email=settings.EMAIL_SENDER,
             to=[
-                self.user.email,
+                self.email,
             ],
             headers=None,
         )
@@ -483,7 +486,7 @@ class User(AbstractUser, BaseModel):
             },
             from_email=settings.EMAIL_SENDER,
             to=[
-                self.user.email,
+                self.email,
             ],
             headers=None,
         )
@@ -533,10 +536,10 @@ class User(AbstractUser, BaseModel):
         # # ---------------------------------------------------------------------
         # # --- Update/insert SEO Model Instance Metadata.
         # update_seo_model_instance_metadata(
-        #     title=self.user.get_full_name(),
+        #     title=self.get_full_name(),
         #     description=self.bio,
         #     keywords=self.nickname,
-        #     heading=self.user.get_full_name(),
+        #     heading=self.get_full_name(),
         #     path=self.get_absolute_url(),
         #     object_id=self.id,
         #     content_type_id=ContentType.objects.get_for_model(self).id,

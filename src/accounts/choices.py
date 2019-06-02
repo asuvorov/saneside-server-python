@@ -17,7 +17,7 @@ class Gender(Enum):
 
 
 gender_choices = [
-    (Gender.OTHER,  _("Other")),
-    (Gender.FEMALE, _("Female")),
-    (Gender.MALE,   _("Male")),
+    (Gender.OTHER.value,    _("Other")),
+    (Gender.FEMALE.value,   _("Female")),
+    (Gender.MALE.value,     _("Male")),
 ]

@@ -286,6 +286,7 @@ BOWER_INSTALLED_APPS = (
     "jquery#3.3.1",
     "jquery-popup-overlay",
     "moment#2.24.0",
+    "noty",
 )
 
 

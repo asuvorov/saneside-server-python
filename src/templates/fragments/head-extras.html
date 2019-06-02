@@ -2,7 +2,7 @@
 {% load compress %}
 
     <!--
-    PREREQUISITES
+    PRE-REQUISITES
     -->
 
     <!-- jQuery -->
@@ -38,8 +38,9 @@
     <!-- Font Flat Icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'fonts/flaticon/flaticon.css' %}">
 
+
     <!--
-    JQUERY MODULES
+    JQUERY PLUGINS
     -->
 
     <!-- jQuery isMobile -->
@@ -47,14 +48,24 @@
     <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
 {% endcompress %}
 
+    <!-- jQuery Noty -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'noty/lib/noty.css' %}" />
+{% endcompress %}
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'noty/lib/noty.min.js' %}"></script>
+{% endcompress %}
+
     <!-- jQuery pop-up Overlay -->
 {% compress js %}
     <script type="text/javascript" charset="utf-8" src="{% static 'jquery-popup-overlay/jquery.popupoverlay.js' %}"></script>
 {% endcompress %}
 
+
     <!--
-    BOOTSTRAP MODULES
+    BOOTSTRAP PLUGINS
     -->
+
     <!-- Twitter Bootstrap Awesome Checkbox -->
 {% compress css %}
     <link rel="stylesheet" type="text/css" href="{% static 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' %}">

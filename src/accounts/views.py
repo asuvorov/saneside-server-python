@@ -38,6 +38,7 @@ from django.utils.http import (
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 
 from termcolor import colored
 
@@ -99,12 +100,12 @@ def account_signup(request):
 
             # -----------------------------------------------------------------
             # --- Create User Privacy.
-            UserPrivacyGeneral.objects.create(
-                user=user)
-            UserPrivacyMembers.objects.create(
-                user=user)
-            UserPrivacyAdmins.objects.create(
-                user=user)
+            # UserPrivacyGeneral.objects.create(
+            #     user=user)
+            # UserPrivacyMembers.objects.create(
+            #     user=user)
+            # UserPrivacyAdmins.objects.create(
+            #     user=user)
 
             """
             user.backend = "django.contrib.auth.backends.ModelBackend"
@@ -198,3 +199,83 @@ def account_signup(request):
             # "aform":    aform,
             # "nform":    nform,
         })
+
+
+def account_signup_confirm(request, uidb36=None, token=None):
+    """Sign up confirm."""
+    print colored("***" * 27, "green")
+    print colored("*** INSIDE `{}`".format(
+        inspect.stack()[0][3]
+        ), "green")
+
+    assert uidb36 is not None and token is not None
+
+    try:
+        uid_int = base36_to_int(uidb36)
+        user = User.objects.get(
+            id=uid_int
+        )
+    except (ValueError, User.DoesNotExist):
+        user = None
+
+    if user is not None and token_generator.check_token(user, token):
+        # ---------------------------------------------------------------------
+        # --- Instant log-in after confirmation.
+        user.is_active = True
+        user.save()
+
+        user.backend = "django.contrib.auth.backends.ModelBackend"
+        auth_login(request, user)
+
+        DOMAIN_NAME = request.get_host()
+        url = reverse(
+            "login", kwargs={})
+        login_link = "http://{domain}{url}".format(
+            domain=DOMAIN_NAME,
+            url=url,
+            )
+
+        # ---------------------------------------------------------------------
+        # --- Send Email Notification(s).
+        user.profile.email_notify_signup_confirmed(
+            request=request,
+            url=login_link)
+
+        # ---------------------------------------------------------------------
+        # --- Save the Log.
+        # papertrail.log(
+        #     event_type="new-user-sign-up-confirmed",
+        #     message="New User sign up was confirmed",
+        #     data={
+        #         "user":         user.email,
+        #     },
+        #     # timestamp=timezone.now(),
+        #     targets={
+        #         "user":         user,
+        #         "profile":      user.profile,
+        #     },
+        #     )
+
+        """
+        return render(
+            request,
+            "accounts/account-signup-confirmation-success.html", {})
+        """
+        return HttpResponseRedirect(
+            reverse("my-profile-edit"))
+    else:
+        # ---------------------------------------------------------------------
+        # --- Save the Log.
+        # papertrail.log(
+        #     event_type="new-user-sign-up-confirm-failed",
+        #     message="New User sign up confirm failed",
+        #     data={
+        #         "user_id":      base36_to_int(uidb36),
+        #     },
+        #     # timestamp=timezone.now(),
+        #     targets={},
+        #     )
+
+        return render(
+            request,
+            "accounts/account-signup-confirmation-error.html", {})

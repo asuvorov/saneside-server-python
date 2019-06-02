@@ -11,9 +11,12 @@ urlpatterns = [
 
     # -------------------------------------------------------------------------
     # --- Account Registration.
-    url(r"^account-signup/$",
+    url(r"^signup/$",
         account_signup,
         name="account-signup"),
+    url(r"^signup/confirm/(?P<uidb36>[0-9A-Za-z]{1,13})-(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$",
+        account_signup_confirm,
+        name="signup-confirm"),
 
     # -------------------------------------------------------------------------
     # --- My Profile.

@@ -6,6 +6,7 @@ from django.shortcuts import (
     render,
     )
 from django.views.decorators.cache import cache_page
+from django.views.generic import TemplateView
 
 from termcolor import colored
 
@@ -14,42 +15,63 @@ from termcolor import colored
 # --- Index.
 # -----------------------------------------------------------------------------
 # @cache_page(60 * 60)
-def index(request):
-    """Docstring."""
-    print colored("***" * 27, "green")
-    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
+class IndexViewSet(TemplateView):
+    """Index Page View Set."""
 
-    # g = GeoIP()
-    # ip = get_client_ip(request)
-    # # ip = "108.162.209.69"
-    # country = g.country(ip)
-    # city = g.city(ip)
+    template_name = "home/index.html"
 
-    # print colored("[---  DUMP   ---] COUNTRY : %s" % country, "yellow")
-    # print colored("[---  DUMP   ---] CITY    : %s" % city, "yellow")
+    def get(self, request, *args, **kwrags):
+        """GET."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
 
-    return render(
-        request, "home/index.html", {})
+        # g = GeoIP()
+        # ip = get_client_ip(request)
+        # # ip = "108.162.209.69"
+        # country = g.country(ip)
+        # city = g.city(ip)
+
+        # print colored("[---  DUMP   ---] COUNTRY : %s" % country, "yellow")
+        # print colored("[---  DUMP   ---] CITY    : %s" % city, "yellow")
+
+        return self.render_to_response({})
 
 
 # -----------------------------------------------------------------------------
 # --- Terms & Conditions.
 # -----------------------------------------------------------------------------
 # @cache_page(60 * 60 * 24)
-def privacy_policy(request):
-    """Docstring."""
-    print colored("***" * 27, "green")
-    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
+class PrivacyPolicyViewSet(TemplateView):
+    """Privacy Policy Page View Set."""
 
-    return render(
-        request, "home/privacy-policy.html", {})
+    template_name = "home/privacy-policy.html"
+
+    def get(self, request, *args, **kwrags):
+        """GET."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        return self.render_to_response({})
 
 
 # @cache_page(60 * 60 * 24)
-def user_agreement(request):
-    """Docstring."""
-    print colored("***" * 27, "green")
-    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
+class UserAgreementViewSet(TemplateView):
+    """User Agreement Page View Set."""
 
-    return render(
-        request, "home/user-agreement.html", {})
+    template_name = "home/user-agreement.html"
+
+    def get(self, request, *args, **kwrags):
+        """GET."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        return self.render_to_response({})
