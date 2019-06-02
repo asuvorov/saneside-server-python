@@ -19,7 +19,9 @@ from accounts.forms import UserForm
 def account_signup(request):
     """Sign up."""
     print colored("***" * 27, "green")
-    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
+    print colored("*** INSIDE `{}`".format(
+        inspect.stack()[0][3],
+        ), "green")
 
     # g = GeoIP()
     # ip = get_client_ip(request)

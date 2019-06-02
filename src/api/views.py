@@ -63,7 +63,10 @@ class APIStatusViewSet(APIView):
 
         """
         print colored("***" * 27, "green")
-        print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3],
+            ), "green")
 
         # ---------------------------------------------------------------------
         # --- Initials.
@@ -124,7 +127,10 @@ class APIVersionViewSet(APIView):
 
         """
         print colored("***" * 27, "green")
-        print colored("*** INSIDE `%s.%s`" % (self.__class__.__name__, inspect.stack()[0][3]), "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3],
+            ), "green")
 
         # ---------------------------------------------------------------------
         # --- Initials.

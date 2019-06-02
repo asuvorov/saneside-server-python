@@ -48,11 +48,21 @@ class UserForm(forms.ModelForm):
                 "placeholder":  _("Retry"),
                 "value":        "",
             }))
+    captcha = CaptchaField()
+    birthday = forms.DateField(
+        input_formats=("%m/%d/%Y",),
+        widget=forms.DateInput(
+            format="%m/%d/%Y",
+            attrs={
+                "class":    "form-control",
+            }))
 
     class Meta:
         model = User
         fields = [
             "first_name", "last_name", "email", "password",
+            "avatar", "nickname", "bio", "gender", "birthday",
+            "receive_newsletters",
         ]
         widgets = {
             "first_name": forms.TextInput(
@@ -71,6 +81,26 @@ class UserForm(forms.ModelForm):
                 attrs={
                     "class":        "form-control",
                     "placeholder":  _("Email"),
+                }),
+            "nickname": forms.TextInput(
+                attrs={
+                    "class":        "form-control",
+                    "placeholder":  _("Nickname"),
+                    "maxlength":    30,
+                }),
+            "bio": forms.Textarea(
+                attrs={
+                    "class":        "form-control",
+                    "placeholder":  _("Tell us a bit about yourself."),
+                    "maxlength":    1000,
+                }),
+            "gender": forms.Select(
+                attrs={
+                    "class":        "form-control selectpicker",
+                }),
+            "birthday": forms.DateInput(
+                attrs={
+                    "class":        "form-control",
                 }),
             }
 
