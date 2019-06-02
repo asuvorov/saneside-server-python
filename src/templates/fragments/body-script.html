@@ -2,7 +2,9 @@
 
 <script>
     /*************************************************************************/
+    /***                                                                   ***/
     /*** AJAX Spinner                                                      ***/
+    /***                                                                   ***/
     /*************************************************************************/
     $(document).ajaxStart(function () {
         $("#spinner").fadeIn("slow");
@@ -10,4 +12,64 @@
     $(document).ajaxStop(function () {
         $("#spinner").fadeOut("slow");
     });
+
+    /*************************************************************************/
+    /***                                                                   ***/
+    /*** Custom Scripts                                                    ***/
+    /***                                                                   ***/
+    /*************************************************************************/
+    console.log(">>> isMobile?", isMobile.any);
+
+    // ------------------------------------------------------------------------
+    // --- Avatar Preview
+    // ------------------------------------------------------------------------
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#avatar").attr("src", e.target.result);
+                $("#avatar").parent().show();
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#id_avatar").change(function () {
+        readURL(this);
+    });
+
+    // ------------------------------------------------------------------------
+    // --- Wrapper for Avatar Image File Input Field
+    // ------------------------------------------------------------------------
+    var wrapper = $("<div/>").css({
+        height:         0,
+        width:          0,
+        "overflow":     "hidden"
+    });
+    var fileInput = $("#id_avatar:file").wrap(wrapper);
+
+    fileInput.change(function () {
+        $this = $(this);
+        //$("#file").val($this.val());
+    })
+
+    $("#file").click(function () {
+        fileInput.click();
+    }).show();
+
+    /*************************************************************************/
+    /***                                                                   ***/
+    /*** Bootstrap Plug-ins                                                ***/
+    /***                                                                   ***/
+    /*************************************************************************/
+    // ------------------------------------------------------------------------
+    // --- Initialize Carousel
+    $("#index-carousel").carousel({
+        interval:       5000
+    })
+    $("#twitter-carousel").carousel({
+        interval:       3000
+    })
+
 </script>
