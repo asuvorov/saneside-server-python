@@ -34,7 +34,7 @@ AWS_HEADERS = {
 }
 
 DEFAULT_FILE_STORAGE = "ddutils.S3.MediaS3BotoStorage"
-# STATICFILES_STORAGE = "s3utils.StaticS3BotoStorage"
+# STATICFILES_STORAGE = "ddutils.S3.StaticS3BotoStorage"
 
 S3_URL = "http://%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 # STATIC_URL = S3_URL + "/static/"

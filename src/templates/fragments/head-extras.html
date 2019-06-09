@@ -1,9 +1,18 @@
 {% load static %}
 {% load compress %}
 
+    <!--
+    PRE-REQUISITES
+    -->
+
     <!-- jQuery -->
 {% compress js %}
     <script type="text/javascript" charset="utf-8" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+{% endcompress %}
+
+    <!-- Moment JS -->
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'moment/moment.js' %}"></script>
 {% endcompress %}
 
     <!-- Twitter Bootstrap -->
@@ -13,11 +22,6 @@
 {% endcompress %}
 {% compress js %}
     <script type="text/javascript" charset="utf-8" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-{% endcompress %}
-
-    <!-- jQuery isMobile -->
-{% compress js %}
-    <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
 {% endcompress %}
 
     <!-- Less CSS -->
@@ -33,3 +37,41 @@
 
     <!-- Font Flat Icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'fonts/flaticon/flaticon.css' %}">
+
+
+    <!--
+    JQUERY PLUGINS
+    -->
+
+    <!-- jQuery isMobile -->
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'ismobilejs/src/isMobile.js' %}"></script>
+{% endcompress %}
+
+    <!-- jQuery Noty -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'noty/lib/noty.css' %}" />
+{% endcompress %}
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'noty/lib/noty.min.js' %}"></script>
+{% endcompress %}
+
+    <!-- jQuery pop-up Overlay -->
+{% compress js %}
+    <script type="text/javascript" charset="utf-8" src="{% static 'jquery-popup-overlay/jquery.popupoverlay.js' %}"></script>
+{% endcompress %}
+
+
+    <!--
+    BOOTSTRAP PLUGINS
+    -->
+
+    <!-- Twitter Bootstrap Awesome Checkbox -->
+{% compress css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' %}">
+{% endcompress %}
+
+    <!-- Twitter Bootstrap Max Length-->
+{% compress js %}
+    <script src="{% static 'bootstrap-maxlength/src/bootstrap-maxlength.js' %}"></script>
+{% endcompress %}

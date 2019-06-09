@@ -278,10 +278,15 @@ STATICFILES_FINDERS += (
 BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_PATH, "components/")
 BOWER_PATH = "/usr/local/bin/bower"
 BOWER_INSTALLED_APPS = (
+    "awesome-bootstrap-checkbox",
     "bootstrap#3.3.7",
+    "bootstrap-maxlength",
     "fontawesome#5.6.3",
     "ismobilejs#0.5.0",
     "jquery#3.3.1",
+    "jquery-popup-overlay",
+    "moment#2.24.0",
+    "noty",
 )
 
 
@@ -424,6 +429,20 @@ PASSWORD_COMPLEXITY = {         # You can omit any or all of these for no Limit 
 ###############################################################################
 ### DJANGO SIMPLE CAPTCHA                                                   ###
 ###############################################################################
+INSTALLED_APPS += (
+    "captcha",
+)
+
+CAPTCHA_FONT_SIZE = 22
+CAPTCHA_BACKGROUND_COLOR = "#ffffff"
+CAPTCHA_FOREGROUND_COLOR = "#001100"
+CAPTCHA_PUNCTUATION = '''_"',.;:-'''
+CAPTCHA_TIMEOUT = 5  # Minutes
+CAPTCHA_LENGTH = 4  # Chars
+CAPTCHA_IMAGE_BEFORE_FIELD = True
+CAPTCHA_DICTIONARY_MIN_LENGTH = 0
+CAPTCHA_DICTIONARY_MAX_LENGTH = 99
+CAPTCHA_TEST_MODE = False
 
 
 ###############################################################################
@@ -454,7 +473,7 @@ SOCIAL_AUTH_TWITTER_SECRET = TWITTER_CONSUMER_SECRET
 LINKEDIN_OAUTH_TOKEN = config("LINKEDIN_OAUTH_TOKEN", default="")
 LINKEDIN_OAUTH_SECRET = config("LINKEDIN_OAUTH_SECRET", default="")
 LINKEDIN_CONSUMER_KEY = config("LINKEDIN_CONSUMER_KEY", default="")
-LINKEDIN_CONSUMER_SECRET =config("LINKEDIN_CONSUMER_SECRET", default="")
+LINKEDIN_CONSUMER_SECRET = config("LINKEDIN_CONSUMER_SECRET", default="")
 LINKEDIN_SCOPE = ["r_basicprofile", "r_emailaddress", ]
 LINKEDIN_EXTRA_FIELD_SELECTORS = ["email-address", ]
 

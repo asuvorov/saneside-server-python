@@ -6,41 +6,72 @@ from django.shortcuts import (
     render,
     )
 from django.views.decorators.cache import cache_page
+from django.views.generic import TemplateView
 
 from termcolor import colored
 
 
 # -----------------------------------------------------------------------------
-# --- Index
+# --- Index.
 # -----------------------------------------------------------------------------
-@cache_page(60 * 60)
-def index(request):
-    """Docstring."""
-    print colored("***" * 27, "green")
-    print colored("*** INSIDE `%s`" % inspect.stack()[0][3], "green")
+# @cache_page(60 * 60)
+class IndexViewSet(TemplateView):
+    """Index Page View Set."""
 
-    # g = GeoIP()
-    # ip = get_client_ip(request)
-    # # ip = "108.162.209.69"
-    # country = g.country(ip)
-    # city = g.city(ip)
+    template_name = "home/index.html"
 
-    # print colored("[---  DUMP   ---] COUNTRY : %s" % country, "yellow")
-    # print colored("[---  DUMP   ---] CITY    : %s" % city, "yellow")
+    def get(self, request, *args, **kwrags):
+        """GET."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
 
-    timeline_qs = []
-    # timeline_qs = sorted(
-    #     chain(
-    #         Post.objects.all(),
-    #         Challenge.objects.get_upcoming(),
-    #         Organization.objects.filter(
-    #             is_hidden=False,
-    #             is_deleted=False,
-    #         )
-    #     ),
-    #     key=attrgetter("created"))[:10]
+        # g = GeoIP()
+        # ip = get_client_ip(request)
+        # # ip = "108.162.209.69"
+        # country = g.country(ip)
+        # city = g.city(ip)
 
-    return render(
-        request, "home/index.html", {
-            "timeline_qs":  timeline_qs,
-        })
+        # print colored("[---  DUMP   ---] COUNTRY : %s" % country, "yellow")
+        # print colored("[---  DUMP   ---] CITY    : %s" % city, "yellow")
+
+        return self.render_to_response({})
+
+
+# -----------------------------------------------------------------------------
+# --- Terms & Conditions.
+# -----------------------------------------------------------------------------
+# @cache_page(60 * 60 * 24)
+class PrivacyPolicyViewSet(TemplateView):
+    """Privacy Policy Page View Set."""
+
+    template_name = "home/privacy-policy.html"
+
+    def get(self, request, *args, **kwrags):
+        """GET."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        return self.render_to_response({})
+
+
+# @cache_page(60 * 60 * 24)
+class UserAgreementViewSet(TemplateView):
+    """User Agreement Page View Set."""
+
+    template_name = "home/user-agreement.html"
+
+    def get(self, request, *args, **kwrags):
+        """GET."""
+        print colored("***" * 27, "green")
+        print colored("*** INSIDE `{}.{}`".format(
+            self.__class__.__name__,
+            inspect.stack()[0][3]
+            ), "green")
+
+        return self.render_to_response({})

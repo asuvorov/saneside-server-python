@@ -2,12 +2,131 @@
 
 <script>
     /*************************************************************************/
+    /***                                                                   ***/
     /*** AJAX Spinner                                                      ***/
+    /***                                                                   ***/
     /*************************************************************************/
     $(document).ajaxStart(function () {
         $("#spinner").fadeIn("slow");
     });
     $(document).ajaxStop(function () {
         $("#spinner").fadeOut("slow");
+    });
+
+    /*************************************************************************/
+    /***                                                                   ***/
+    /*** Custom Scripts                                                    ***/
+    /***                                                                   ***/
+    /*************************************************************************/
+    console.log(">>> isMobile?", isMobile.any);
+
+    // ------------------------------------------------------------------------
+    // --- Avatar Preview
+    // ------------------------------------------------------------------------
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $("#avatar").attr("src", e.target.result);
+                $("#avatar").parent().show();
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#id_avatar").change(function () {
+        readURL(this);
+    });
+
+    // ------------------------------------------------------------------------
+    // --- Wrapper for Avatar Image File Input Field
+    // ------------------------------------------------------------------------
+    var wrapper = $("<div/>").css({
+        height:         0,
+        width:          0,
+        "overflow":     "hidden"
+    });
+    var fileInput = $("#id_avatar:file").wrap(wrapper);
+
+    fileInput.change(function () {
+        $this = $(this);
+        //$("#file").val($this.val());
+    })
+
+    $("#file").click(function () {
+        fileInput.click();
+    }).show();
+
+    /*************************************************************************/
+    /***                                                                   ***/
+    /*** jQuery Plug-ins                                                   ***/
+    /***                                                                   ***/
+    /*************************************************************************/
+    // ------------------------------------------------------------------------
+    // --- Initialize Noty
+    Noty.overrideDefaults({
+        type:           "error",
+        layout:         "topRight",
+        theme:          "bootstrap-v3",         // or "relax"
+        text:           "",
+        timeout:        3000,                   // delay for closing event. Set false for sticky notifications
+        progressBar:    true,
+        closeWith:      ["click"],              // ["click", "button"].
+        animation: {
+            open:       "animated bounce",      // Animate.css class names
+            close:      "animated flipOutX",    // Animate.css class names
+            easing:     "swing",                // unavailable - no need
+            speed:      500                     // unavailable - no need
+        },
+        modal:          false,
+        force:          true,                   // adds notification to the beginning of queue when set to true
+        dismissQueue:   true,                   // If you want to use queue feature set this true
+        killer:         false,                  // for close all notifications before show
+        template:       "<div class='noty_message'><span class='noty_text'></span><div class='noty_close'></div></div>",
+        maxVisible:     10,                     // you can set max visible notification for dismissQueue true option,
+        callback: {
+            onShow:         function () {},
+            afterShow:      function () {},
+            onClose:        function () {},
+            afterClose:     function () {},
+            onCloseClick:   function () {},
+        },
+        buttons:        false                   // an array of buttons
+    });
+
+    /*************************************************************************/
+    /***                                                                   ***/
+    /*** Bootstrap Plug-ins                                                ***/
+    /***                                                                   ***/
+    /*************************************************************************/
+    // ------------------------------------------------------------------------
+    // --- Initialize Carousel
+    // ------------------------------------------------------------------------
+    $("#index-carousel").carousel({
+        interval:       5000
+    })
+    $("#twitter-carousel").carousel({
+        interval:       3000
+    })
+
+    // ------------------------------------------------------------------------
+    // --- Initialize Max Length
+    // ------------------------------------------------------------------------
+    $("input[maxlength]").maxlength({
+        alwaysShow:         false,
+        threshold:          10,
+        warningClass:       "label label-success",
+        limitReachedClass:  "label label-danger",
+        placement:          "bottom-right",
+        validate:           true
+    });
+    $("textarea[maxlength]").maxlength({
+        alwaysShow:         false,
+        threshold:          100,
+        warningClass:       "label label-success",
+        limitReachedClass:  "label label-danger",
+        placement:          "bottom-right",
+        validate:           true
     });
 </script>
